@@ -60,6 +60,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       BoxShadow(
                         blurRadius: 15,
                         offset: const Offset(10, 10),
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.3),
                       )
                     ],
@@ -69,6 +70,42 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ],
           ),
+          SizedBox(
+            height: 25,
+          ),
+          FutureBuilder<WebtoonDetailModel>(
+            future: webtoon,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.about,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return Text("...");
+            },
+          )
         ],
       ),
     );

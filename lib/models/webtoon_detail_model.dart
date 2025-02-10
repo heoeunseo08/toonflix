@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class WebtoonDetailModel {
   final String title, about, genre, age;
 

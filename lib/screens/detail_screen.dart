@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/models/webtoon_detail_model.dart';
 import 'package:toonflix/models/webtoon_episode_model.dart';
 import 'package:toonflix/services/api_service.dart';
-import 'package:html_unescape/html_unescape.dart';
+import 'package:html_unescape/html_unescape_small.dart';
+import 'package:toonflix/widgets/episode_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -110,48 +111,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   for (var episode in snapshot.data!.length > 10
                                       ? snapshot.data!.sublist(0, 10)
                                       : snapshot.data!)
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.green.shade400,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 5,
-                                              offset: Offset(5, 5),
-                                              color:
-                                                  // ignore: deprecated_member_use
-                                                  Colors.black.withOpacity(0.3),
-                                            )
-                                          ]),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                          horizontal: 20,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: Text(
-                                                unescape.convert(
-                                                  episode.title,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                            Icon(Icons.chevron_right_rounded,
-                                                color: Colors.white),
-                                          ],
-                                        ),
-                                      ),
-                                    )
+                                    Episode(
+                                      unescape: unescape,
+                                      episode: episode,
+                                      webtoonId: widget.id,
+                                    ),
                                 ],
                               );
                             }
